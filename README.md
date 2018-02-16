@@ -52,7 +52,7 @@ After successful deployment, the Bastion Node is no longer required unless you w
 
 ### Generate SSH Keys
 
-You'll need to generate an SSH key pair (Public / Private) in order to provision this template. Ensure that you do **NOT** include a passphrase with the private key. <br/><br/>
+You'll need to generate an SSH key pair (Public / Private) in order to provision this template. Ensure that you do **NOT** include a passphrase with the private key. <br/>
 
          ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''
 
@@ -82,7 +82,7 @@ To configure Azure as the Cloud Provider for OpenShift Container Platform, you w
 
          az group create --name ... --location 'Southeast Asia'
 
-         az ad sp create-for-rbac --name ... --role Contributor --password '...' --scopes
+         az ad sp create-for-rbac --name ... --role Contributor --password '...' --scopes $(az group show --name ... --query id)
 
 You will get an output similar to:
 
