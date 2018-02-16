@@ -54,7 +54,7 @@ After successful deployment, the Bastion Node is no longer required unless you w
 
 You'll need to generate an SSH key pair (Public / Private) in order to provision this template. Ensure that you do **NOT** include a passphrase with the private key. <br/><br/>
 
- **ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''**
+ ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''
 
 ### Create Key Vault to store SSH Private Key
 
@@ -64,14 +64,15 @@ You will need to create a Key Vault to store your SSH Private Key that will then
 
   a.  Create new Resource Group: az group create -n \<name\> -l \<location\>
 
-         **az group create -n ... -l 'Southeast Asia'**
+         az group create -n ... -l 'Southeast Asia'
 
   b.  Create Key Vault: az keyvault create -n \<vault-name\> -g \<resource-group\> -l \<location\> --enabled-for-template-deployment true<br/>
   
-         az keyvault create -n ... -g ... -l 'Southeast Asia' --enabled-for-template-deployment true<br/>
+         az keyvault create -n ... -g ... -l 'Southeast Asia' --enabled-for-template-deployment true
 
   c.  Create Secret: az keyvault secret set --vault-name \<vault-name\> -n \<secret-name\> --file \<private-key-file-name\><br/>
-         Ex: `az keyvault secret set --vault-name ... -n ... --file ~/.ssh/id_rsa`<br/>
+
+         az keyvault secret set --vault-name ... -n ... --file ~/.ssh/id_rsa
 
 ### Generate Azure Active Directory (AAD) Service Principal
 
