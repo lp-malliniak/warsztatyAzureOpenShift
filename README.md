@@ -54,7 +54,7 @@ After successful deployment, the Bastion Node is no longer required unless you w
 
 You'll need to generate an SSH key pair (Public / Private) in order to provision this template. Ensure that you do **NOT** include a passphrase with the private key. <br/><br/>
 
- ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''
+         ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''
 
 ### Create Key Vault to store SSH Private Key
 
