@@ -54,21 +54,24 @@ After successful deployment, the Bastion Node is no longer required unless you w
 
 You'll need to generate an SSH key pair (Public / Private) in order to provision this template. Ensure that you do **NOT** include a passphrase with the private key. <br/><br/>
 
- ** ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''**
+ **ssh-keygen -f ~/.ssh/openshift_rsa -t rsa -N ''**
 
 ### Create Key Vault to store SSH Private Key
 
 You will need to create a Key Vault to store your SSH Private Key that will then be used as part of the deployment.  This extra work is to provide security around the Private Key - especially since it does not have a passphrase.  I recommend creating a Resource Group specifically to store the KeyVault.  This way, you can reuse the KeyVault for other deployments and you won't have to create this every time you chose to deploy another OpenShift cluster.
 
 **Create Key Vault using Azure CLI 2.0**<br/>
-  a.  Create new Resource Group: az group create -n \<name\> -l \<location\><br/>
-         Ex: `az group create -n ResourceGroupName -l 'Southeast Asia'`<br/>
+
+  a.  Create new Resource Group: az group create -n \<name\> -l \<location\>
+
+         **az group create -n ... -l 'Southeast Asia'**
 
   b.  Create Key Vault: az keyvault create -n \<vault-name\> -g \<resource-group\> -l \<location\> --enabled-for-template-deployment true<br/>
-         Ex: `az keyvault create -n KeyVaultName -g ResourceGroupName -l 'Southeast Asia' --enabled-for-template-deployment true`<br/>
+  
+         az keyvault create -n ... -g ... -l 'Southeast Asia' --enabled-for-template-deployment true<br/>
 
   c.  Create Secret: az keyvault secret set --vault-name \<vault-name\> -n \<secret-name\> --file \<private-key-file-name\><br/>
-         Ex: `az keyvault secret set --vault-name KeyVaultName -n SecretName --file ~/.ssh/id_rsa`<br/>
+         Ex: `az keyvault secret set --vault-name ... -n ... --file ~/.ssh/id_rsa`<br/>
 
 ### Generate Azure Active Directory (AAD) Service Principal
 
