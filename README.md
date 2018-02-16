@@ -80,9 +80,9 @@ To configure Azure as the Cloud Provider for OpenShift Container Platform, you w
 
 **Azure CLI 2.0**
 
-1. az group create --name ... --location 'Southeast Asia'
+         az group create --name ... --location 'Southeast Asia'
 
-2. az ad sp create-for-rbac --name ... --role Contributor --password '...' --scopes
+         az ad sp create-for-rbac --name ... --role Contributor --password '...' --scopes
 
 You will get an output similar to:
 
