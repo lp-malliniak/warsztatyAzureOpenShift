@@ -179,6 +179,45 @@ Use user 'root' and the same password as you assigned to your OpenShift admin to
  
 You can configure additional settings per the official (<a href="https://docs.openshift.com/container-platform/3.6/welcome/index.html" target="_blank">OpenShift Enterprise Documentation</a>).
 
+### Quick deployment in few steps
+
+#### Cloud Shell
+
+* $ ssh-keygen -t rsa
+
+#### Azure CLI
+Import private ssh key to  KeyVault
+* $ az group create -n kluczessh -l eastus 
+* $ az keyvault create -n linuxpolska**ID** -g kluczessh -l eastus --enabled-for-template-deployment true
+* $ az keyvault secret set --vault-name linuxpolska**ID** -n uzytkownik --file ~/.ssh/id_rsa
+
+Add and assign to ocplinuxpolska group "service principal"
+
+* $ az group create --name ocplinuxpolska --location eastus
+* $ az account list --output table
+* $ az ad sp create-for-rbac -n deployment -p Welcome201802 --role contributor --scopes /subscriptions/**twoje-unikalne-subscription-id**/resourceGroups/ocplinuxpolska
+* copy output (remember appID) with will be use in template - (Aad Client Id)
+
+#### Template
+
+Select existing ocplinuxpolska resource group
+
+* $ cat ~/.ssh/id_rsa.pub
+
+* openshift password: Welcome201802 
+* Rhsm username or org Id: username@linuxpolska.pl
+* Rhsm passowrd Or Activation Key: SecretPass
+* Rhsm Pool Id: 665446787ad667f8g0009jj
+* Ssh Public Key: ssh-rsa AAAA…..BBB
+* Key Vault Resource Group: kluczessh
+* Key Vault Name: linuxpolska**ID**
+* Key Vault Secret: uzytkownik
+* Aad Client Id: deployment
+* Aad Client Secret: Welcome201802
+
+
+
+
 
 ### Additional info
 Most informations have been downloaded from <a href="https://github.com/Microsoft/openshift-container-platform" target="_blank">here.</a>
